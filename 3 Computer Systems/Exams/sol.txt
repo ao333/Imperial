@@ -10,7 +10,8 @@ iii) Two's complement: One's Complement. If negative, add 1 to the One's Complem
 iv) Excess 64: Add Excess to decimal, then find the binary
 -45+64=19 -> 0001 0011
 b
-High Order Interleave: reads the module bits first, resulting in adjacent row addresses coming from the same module. This allows different devices to access different modules concurrently, allowing for parallel operation and thus higher performance.
+High Order Interleave: reads the module bits first, resulting in adjacent row addresses coming from the same module. This allows different devic
+es to access different modules concurrently, allowing for parallel operation and thus higher performance.
 Low Order Interleave: reads the row bits first, resulting in adjacent row addresses coming from interleaving modules. This allows the same device to access adjacent addresses in parallel. Higher performance if CPU can pre-fetch adjacent memory locations.
 c
 i) (A+A)'=A' Indempotent
