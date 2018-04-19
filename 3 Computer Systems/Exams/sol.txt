@@ -1,20 +1,17 @@
 2015
 
 1a
-i) Sign and Magnitude: Find positive binary. If negative, flip the leftmost bit.
-0010 1101 -> 1010 1101
-ii) One's Complement: Find positive binary. If negative, flip bits.
-0010 1101 -> 1101 0010
-iii) Two's complement: One's Complement. If negative, add 1 to the One's Complement.
-1101 0010 -> 1101 0011
-iv) Excess 64: Add Excess to decimal, then find the binary
--45+64=19 -> 0001 0011
+i) Sign and Magnitude: Find positive binary -> If negative, flip the leftmost bit: 0010 1101 -> 1010 1101
+ii) One's Complement: Find positive binary -> If negative, flip bits: 0010 1101 -> 1101 0010
+iii) Two's complement: One's Complement -> If negative, add 1 to the One's Complement: 1101 0010 -> 1101 0011
+iv) Excess 64: Add Excess to decimal -> Find the binary: -45+64=19 -> 0001 0011
 b
-High Order Interleave: reads the module bits first, resulting in adjacent row addresses coming from the same module. This allows different devic
-es to access different modules concurrently, allowing for parallel operation and thus higher performance.
-Low Order Interleave: reads the row bits first, resulting in adjacent row addresses coming from interleaving modules. This allows the same device to access adjacent addresses in parallel. Higher performance if CPU can pre-fetch adjacent memory locations.
+High Order Interleave: Read module bits first, resulting in adjacent row addresses coming from the same module.
+This allows different devices to access different modules concurrently, allowing for parallel operation and thus higher performance.
+Low Order Interleave: Read row bits first, resulting in adjacent row addresses coming from interleaving modules.
+This allows the same device to access adjacent addresses in parallel. Higher performance if CPU can pre-fetch adjacent memory locations.
 c
-i) (A+A)'=A' Indempotent
+i) (A+A)' -> A' Indempotent
 ii) NOR1(A+A)'=A', NOR2(B+B)'=B', NOR3(A'+B')' -> A*B Demorgan
 iii) (A+B)' -> A+B Negation
 d
@@ -36,7 +33,13 @@ iii) Instruction is brought into Ri with the code.
 Control unit checks if register i is 0.
 If 0, the memory address of the instruction will be loaded into the program counter.
 One can also include ALU info which does the testing (comparison).
-iv) Call instruction pushes the EIP into ESP. ESP then pushes into EBP. EBP then pushes its content address into the stack, and then jumps one address down, so that we can resume and return to where we were before the call using RET. A Jump instruction permanently changes the program counter. Jumps typically have a conditional flag allowing the program to jump to a different address if the flag tests true, although one can also jump unconditionally. This can be used to create a nested function call by jumping "backwards" and then executing statement calls in order from there, ultimately leading back to the jump instruction. The jump instruction will, if used correctly, eventually be bypassed due to some condition which is also how while and for loops work. Jump is also used to end a nested loop. Jump acts like a GOTO whereas CALL acts more like a function call.
+iv) Call instruction pushes the EIP into ESP. ESP then pushes into EBP. EBP then pushes its content address into the stack so we can return to
+where we were before the call using RET. EBP then jumps one address down. A Jump instruction permanently changes the program counter. Jumps
+typically have a conditional flag allowing the program to jump to a different address if the flag tests true, although one can also jump
+unconditionally. This can be used to create a nested function call by jumping "backwards" and then executing statement calls in order from
+there, ultimately leading back to the jump instruction.
+The jump instruction will, if used correctly, eventually be bypassed due to some condition which is also how while and for loops work.
+Jump is also used to end a nested loop. Jump acts like a GOTO whereas CALL acts more like a function call.
 b
 081H | LOAD R0,200H   | Load address of A[0] (100H) into R0 (for incrementing)
 082H | LOAD R1,250H   | Load address of A[n-1] (150H) into R1 (for decrementing)
@@ -60,10 +63,12 @@ e
 i) Block Linkage: 2KB=2^11B=2048-2bytes per cluster. 2500th byte is on the second cluster, thus 2 reads are required.
 FAT: Best Case: 2 (1 FAT + 1 Cluster). Worst Case: 3 (1 FAT + 2 Clusters)
 ii) 555000/2046=271.2. This means that the byte in question is on the 272nd cluster or 272 reads.
-FAT: The 555000th byte is on 555000/2048=270.996 or 271 blocks. 1 FAT can hold 2^11/2=1024 blocks, so 1 FAT is enough. Best Case: 2 (1 FAT + 1 Block), Worst Case: 272 (271 FAT + 1 Block)
+FAT: The 555000th byte is on 555000/2048=270.996 or 271 blocks. 1 FAT can hold 2^11/2=1024 blocks, so 1 FAT is enough.
+Best Case: 2 (1 FAT + 1 Block), Worst Case: 272 (271 FAT + 1 Block)
 
 4a
-A Translation Look-aside Buffer is a hardware memory cache that stores recently used page-frame number translations for faster retrieval. It speeds up address translation by not having to access the main memory twice (once by the page table and once for the actual data).
+A Translation Look-aside Buffer is a hardware memory cache that stores recently used page-frame number translations for faster retrieval.
+It speeds up address translation by not having to access the main memory twice (once by the page table and once for the actual data).
 b
 Effective Access Time = 2*Memory Access Time + TLB Access Time - Memory Access Time * Hit Ratio = 2*200+10-200*0.97=216ns
 c
@@ -72,6 +77,7 @@ ii) Page Size: 4096B=2^12bits, Max Physical Memory: 16MB=2^24bits -> 2^26/2^12=2
 iii) Page 13086/4096=3.19 (Page 3, thus Frame 6) with offset 13086%4096=798. So virtual address 13086 maps to physical address 6*4096+798=25374
 Page 21200/4096=5.18 (Page 5, thus X 205). This generates a page fault, requiring content to be swapped from disk to memory.
 *iv) How many bits are required for each page table entry?
-There can be at most 2^24/2^12=2^12 frames in main memory, so a page table entry will require 12 bits for a frame number, plus protection, valid-invalid and reference bits.
+There can be at most 2^24/2^12=2^12 frames in main memory, so a page table entry will require 12 bits for a frame number,
+plus protection, valid-invalid and reference bits.
 d
 Multilevel Feedback Queues (Refer to 3 Scheduling.pdf)
