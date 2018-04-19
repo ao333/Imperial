@@ -74,7 +74,8 @@ Effective Access Time = 2*Memory Access Time + TLB Access Time - Memory Access T
 c
 i) Max Address Space: 64MB=2^26bits -> 26 bits are required in an address to find a specific address in the entire address space
 ii) Page Size: 4096B=2^12bits, Max Physical Memory: 16MB=2^24bits -> 2^26/2^12=2^12=16384 entries
-iii) Page 13086/4096=3.19 (Page 3, thus Frame 6) with offset 13086%4096=798. So virtual address 13086 maps to physical address 6*4096+798=25374
+iii) Page 13086/4096=3.19 (Page 3, thus Frame 6) with offset 13086%4096=798. So virtual address 13086 maps to physical address 6*4096+798=2537
+4
 Page 21200/4096=5.18 (Page 5, thus X 205). This generates a page fault, requiring content to be swapped from disk to memory.
 *iv) How many bits are required for each page table entry?
 There can be at most 2^24/2^12=2^12 frames in main memory, so a page table entry will require 12 bits for a frame number,
