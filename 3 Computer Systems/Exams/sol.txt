@@ -41,20 +41,20 @@ there, ultimately leading back to the jump instruction.
 The jump instruction will, if used correctly, eventually be bypassed due to some condition which is also how while and for loops work.
 Jump is also used to end a nested loop. Jump acts like a GOTO whereas CALL acts more like a function call.
 b
-081H | LOAD R0,200H   | Load address of A[0] (100H) into R0 (for incrementing)
-082H | LOAD R1,250H   | Load address of A[n-1] (150H) into R1 (for decrementing)
-083H | LOAD R2,[R0]   | Load value of A[0] into R2
-084H | LOAD R3,[R1]   | Load value of A[n-1] into R1
-085H | STORE R3,[R0]  | Store A[0] into A[n-1]
-086H | STORE R2,[R1]  | Store A[n-1] into A[0]
-087H | INC R0         | Increment the address (index) of R0 (101H)
-088H | DEC R1         | Decrement the address (index) of R1 (149H)
-089H | JGT R1,R0,83H  | If address of R1 > R0, keep looping by jumping to 083H
-08AH | STOP           | STOP program
-100H | A[0]           | value of A[0]
-150H | A[n-1]         | value of A[n-1]
-200H | 100H           | address of A[0]
-250H | 150H           | address of A[n-1]
+081H | LOAD R0,200H  | Load address of A[0] (100H) into R0 (for incrementing)
+082H | LOAD R1,250H  | Load address of A[n-1] (150H) into R1 (for decrementing)
+083H | LOAD R2,[R0]  | Load value of A[0] into R2
+084H | LOAD R3,[R1]  | Load value of A[n-1] into R1
+085H | STORE R3,[R0] | Store A[0] into A[n-1]
+086H | STORE R2,[R1] | Store A[n-1] into A[0]
+087H | INC R0        | Increment the address (index) of R0 (101H)
+088H | DEC R1        | Decrement the address (index) of R1 (149H)
+089H | JGT R1,R0,83H | If address of R1 > R0, keep looping by jumping to 083H
+08AH | STOP          | STOP program
+100H | A[0]          | value of A[0]
+150H | A[n-1]        | value of A[n-1]
+200H | 100H          | address of A[0]
+250H | 150H          | address of A[n-1]
 
 3d (Assume 1byte=8bits)
 Each block contains 2^13/2=2^12, 2^14/2=2^13, 2^15/2=2^14 pointers
@@ -74,9 +74,8 @@ Effective Access Time = 2*Memory Access Time + TLB Access Time - Memory Access T
 c
 i) Max Address Space: 64MB=2^26bits -> 26 bits are required in an address to find a specific address in the entire address space
 ii) Page Size: 4096B=2^12bits, Max Physical Memory: 16MB=2^24bits -> 2^26/2^12=2^12=16384 entries
-iii) Page 13086/4096=3.19 (Page 3, thus Frame 6) with offset 13086%4096=798. So virtual address 13086 maps to physical address 6*4096+798=2537
-4
-Page 21200/4096=5.18 (Page 5, thus X 205). This generates a page fault, requiring content to be swapped from disk to memory.
+iii) Page 13086/4096=3.19 (Page 3, thus Frame 6) with offset 13086%4096=798. So virtual address 13086 maps to physical address
+6*4096+798=25374, Page 21200/4096=5.18 (Page 5, thus X 205). This generates a page fault, requiring content to be swapped from disk to memory.
 *iv) How many bits are required for each page table entry?
 There can be at most 2^24/2^12=2^12 frames in main memory, so a page table entry will require 12 bits for a frame number,
 plus protection, valid-invalid and reference bits.

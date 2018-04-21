@@ -1,3 +1,25 @@
+2015
+
+1a
+i) ~((~PvQ)^(~RvS)^(PvR))v(QvS) Implication
+~(~PvQ)v~(~RvS)v~(PvR))v(QvS) De Morgan
+(P^~Q v R^~S v ~P^~R)v(QvS) De Morgan
+[Qv(P^~Q)]v[Sv(R^~S)]v~P
+
+
+2a
+i) EX,Y[tubeline(X)^tubeline(Y)^~(X=Y)^~EA,B,C(tubeline(A)^tubeline(B)^tubeline(C)^~(A=B)^~(B=C)^~(A=C)]
+^AS[onNet(S)->EX(tubeline(X)^servedBy(S,X)]
+^ES[onNet(S)^EX(tubeline(X)^servedBy(S,X))^~EA,B(tubeline(A)^tubeline(B)^~(A=B)^servedBy(S,A)^servedBY(S,B))]
+ii) AL[tubeline(L)->ES1,S2(onNet(S1)^onNet(S2)^~(S1=S2)^servedBy(S1,L)^servedBy(S2,L)]
+^AX,Y,S[tubeline(X)^tubeline(Y)^~(X=Y)^posChange(X,Y,S)<->onNet(S)^servedBy(S,X)^servedBY(S,Y)]
+iii) AP,L[tubeline(L)^travel(P,L)->EV(validTravelDoc(V,P)^possess(P,V)]
+iv) AV,P(validTravelDoc(V,P)->freedomPass(V)^over65(P)^possess(P,V) v dayTicket(V) v seasonTicket(V)
+b
+i) AS1,S2,C[cost(S1,S2,C)<->cost(S2,S1,C)]
+ii) AS1,S2,S,C1,C2[onNet(S),cost(S1,S,C1)^hub(S1)^cost(S2,S,C2)^~hub(S2)->C1>C2]
+?????
+
 1 Propositional Logic 1
 Show: A->B = ~(A^~B)
 (~AvB)
