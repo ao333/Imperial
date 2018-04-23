@@ -1,5 +1,3 @@
-2015
-
 1a
 Feature            | POP      | IMAP      | Winner
 Emails Stored      | Local    | Server    | Depends on Privacy/Convenience
@@ -13,6 +11,7 @@ Storage Limit      | No       | Eventual  | POP
 Implementation     | Simple   | Complex   | POP
 *SMTP delivers mail to mailbox provider (often ISP). A POP (MUA) client connects/authenticates to such server, and downloads the emails.
 *MIME has 7-bit ASCII text, designed exclusively for English
+
 b
 Feature      | Circuit                       | Packet                          | Winner
 Delivery     | In order                      | Out-of-order when congested     | Circuit
@@ -20,12 +19,14 @@ Node Failure | Connection Breaks             | Reroutes                        |
 Overhead     | Initial Connection Set-up     | Every Packet Addressing/Control | Depend on Transfer Size
 Bandwidth    | Guarenteed/Unused Band Wasted | Variable/Uses what's required   | Depends
 Charge       | Time                          | Packet                          | Depends
+
 c
 DNS is not really needed if one can memorize digit strings, and can update thousands of IP addresses changes, locally or rely on a central server that may be down when one's
 homework is due. WWW may not be neccessary since we have other internet applications like mail, and cate. Nonetheless, the DNS can dynamically resolve IP addresses using
 DHCP, administer domain names to avoid conflict, and to build hierachical domains suffixes that have meaning. Its distributed nature improves reliability.
 The second UDP query likely benefited from DNS caching. The DNS server likely responded to the second request with a stored response whose TTL has yet to expire, instead of
 iteratively querying other DNS servers again for a resolution.
+
 d
 Why UDP
 1) Fast/bursty transfers which costs more bandwidth if a guarenteed connection is established (DHCP)
@@ -49,6 +50,7 @@ errors(FEC). Packets can be framed with count/flags to detect loss.
 2a
 Networks need to choose when and how much resources to give mediums based on contention, fairness access latency. They can be allocated statically with bounded latency to
 transmit like TDM, FDM and CDMA, but that leads to wasted bandwidth. Dynamically allocating resources on demand leads to collision and contention using CSMA.
+
 b
 CSMA CD detects collision and minimizes recovery time by listening to the channel while sending. If collision is detected, it backs off immediately and waits for random
 time before re-transmitting. This ensure equal access but unbounded access time, especially long times at heavy loads due to exponential back-of.
@@ -56,11 +58,13 @@ CSMA CA avoids collision and the Hidden/Exposed Terminal Problems of distributed
 tokens which forces devices to remain idle unless premitted to send. If channel is not idle, back-off time is determined by Inter Frame Spacing and grows expotentially.
 CD is usually used on wired connections where collision detection is possible. For wireless signals which broadcasts in every direction, it is costly to detect collision
 (ALOHA), so CA is more preferrable.
+
 c
 *Assuming no retransmission, HTTP/1.0 auto closes connections and requires a new 3-TCP-packet handshake for every request:
 3(Initial Handshake) + 2(2 Images)*3(Handshake)*2(SEQ/Data+ACK/WIN) + 1(text)*3*2 = 21
 HTTP/1.1 allows for a single presistent connection for multiple requests, plus 3 more for client-initiated connection release:
 3(Initial Handshake) + 2*2 + 1*2 + 3(connection release)= 12
+
 d
 i) HTTP is an application layer protocol used by WWW to define message (image/text/etc) format and transmission. It also defines interactions between servers and browsers.
 It establishes a TCP connection with a server and use GET/POST/PUT or other methods to request/send information. It identifies users and maintains state through cookies. 
@@ -119,6 +123,7 @@ needed. If an RMI program does not install a security manager, RMI will not down
 restriction ensures that the operations performed by downloaded code are subject to a security policy. It is needed in server and in client if
 stub is loaded from server. Checks various operations performed by a stub to see whether they are allowed access files, link to dynamic
 libraries, control virtual machine, manipulate threads, or perform priviledged operations.
+
 b
 Remote Procedure Call makes remote calls look like local ones. Client is suspended until the call completes. Parameters must be passed by
 value since Client and Server processes do not share memory and thus Client pointers have no meaning in Server address space, encode the
@@ -135,6 +140,7 @@ iii) Parameterised exceptions -> Simpler error handling.
 iv) type checking -> fewer errors
 v) Access transparency: Remote and local services accessed by same method/syntax
 vi) Location transparency: A user could access files from servers or locally in the same way. (Write once, write everywhere)
+
 c
 i) bool call (request, reply) {
    send(request);
@@ -162,4 +168,23 @@ iv) Transactional (Zero or Once) guarantees that either the procedure is complet
 server must implement an atomic transaction for each RPC i.e., either the state data in the server is updated permanently by an operation
 taking it from one consistent state to another or it is left in its original state, if the call is aborted or a failure occurs. This requires
 two phase commit type of protocol.
+
 d
+include projectrank.idl
+main(){
+  status = export(projectrank,"rankserver",docnameserver);
+  status = RPCServerListen();
+  ranked = A dictionary where the keys are [studentid]. Values default to [false] to indicate that no votes have been cast
+  rankings = A 2D array where the indexes are [studentid][projectid] and the values are myrank
+}
+rank(studentid,projectid,myrank){
+  if !ranked[studentid]{
+    ranked[studentid]=true;
+    myrank[studentid][projectid] = myrank;
+  } else do nothing or send warning as students can only rank once and cannot change their rankings
+}
+listrank(studentid,projectid,myrank){
+  myrank = rankings[projectid][studentid];
+}
+*Both of these operations are idempotent in that one or more execution have the same effect, so they can be repeated.
+Consequently they can be used with at-least-once semantics.
