@@ -1,0 +1,28 @@
+1a
+i) ICMP is a network layer protocol that allows routers to send control/error messages to other router/hosts to provide feedback about communication problems since IP datagrams are unreliable and does not guarantee delivery. Ping verifies connection (If not timed out/host
+blocking ping requests), quality of connection (round trip time, dropped packages), and sending/receiving echo replies. Can also Ping using
+domain names. If successful, DHCP name resolution is also successful (if failed, but IP connection succeeds, then DHCP failed). Traceroute
+finds intermediate hosts (hops) and send ICMP error messages back for every received packet from those hosts with TTL=0. Send packets with
+increasing TTL for each subsequent packet. If timed out during 8th and 9th address, then there's a problem between those routers.
+
+ii) Frame delimiter is a data link layer ethernet framing method to indicate start/end of frame. 10101011 indicates start of frame which allows
+receiver to miss part of preamble (establishes synchronization) without missing the start of the next field
+
+iii) SMTP is an application layer protocol that establishes a TCP connection on port 25 between MTA and MUA to deliver mail, in contrast to IMAP/POP which receives them. Message Transfer Agents are mail servers that handle message transfers and holds mail if destination is
+unreachable. Mail User Agents are clients for email composition, display (Outlook). 
+
+iv) Routing Tables, which operates on the network layer, aims to achieve efficient routing in terms of Available Bandwidth, Delay, Hop Count Price, Traffic Type Priority. Static routing compute routes once and load into router. Dynamic (adaptive) routing change routes to reflect changes in topology and load (as seen through congestion), using Distance Vector Routing and Link State Routing on packet-switched networks.
+Router forwards packets based on destination networks by looking at the table, unlike bridges, which use hosts. Routers verifies/modifies packets, updates fields affected by routing, checks/recalculats checksum, adding transmission, processing delays, and potentially queuing. 
+Routing Objectives:
+Correctness: Find a route (if it exists)
+Efficiency: Routes should provide good performance (should use minimal resources)
+Robustness: Route even when links/nodes fail
+Adaptability: Routes should reflect network conditions without overreacting
+Fairness: Hosts should have equal access to network but Quality of Service (QoS) should be respected
+Simplicity: Cheap, predictable and verifiable
+
+
+*DHCP/NAT
+provides Internet hosts with configuration parameters. DHCP is an extension of BOOTP. DHCP consists of two components: a protocol for delivering host-specific configuration parameters from a DHCP server to a host and a mechanism for allocation of network addresses to hosts.
+Address Resolution Protocol / Reverse Address Resolution Protocol
+to initialize the use of Internet addressing on an Ethernet or other network that uses its own media access control (MAC). ARP allows a host to communicate with other hosts when only the Internet address of its neighbors is known. Before using IP, the host sends a broadcast ARP request containing the Internet address of the desired destination system.

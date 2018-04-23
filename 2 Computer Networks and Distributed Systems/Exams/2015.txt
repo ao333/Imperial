@@ -9,8 +9,7 @@ Emails Read        | Offline  | Online    | POP
 Connect Time       | Short    | Long      | POP
 Storage Limit      | No       | Eventual  | POP
 Implementation     | Simple   | Complex   | POP
-*SMTP delivers mail to mailbox provider (often ISP). A POP (MUA) client connects/authenticates to such server, and downloads the emails.
-*MIME has 7-bit ASCII text, designed exclusively for English
+*Multipurpose Internet Mail Extensions (MIME) has 7-bit ASCII text, designed exclusively for English
 
 b
 Feature      | Circuit                       | Packet                          | Winner
@@ -73,19 +72,21 @@ d
 i) HTTP is an application layer protocol used by WWW to define message (image/text/etc) format and transmission. It also defines interactions
 between servers and browsers. It establishes a TCP connection with a server and use GET/POST/PUT or other methods to request/send information.
 It identifies users and maintains state through cookies. 
+
 ii) Switches operate on Data Link Layer. It listens to traffic and builds address/port table mappings based on source and destination MAC
 addresses in the header using loop-free spanning tree. If source port, don't forward. If port for destination MAC known, forward only to that
 port. Else flood all but source port to find destination.
 It is used to join LANs together, thus forming the ends of collision domains and administration. When speeds between different networks
 differ, it can store and forward (check CRC) or Cut-through (No Check). All this adds transmission and processing delays.
+
 iii) Subnets exist on the network layer to help reduce network complexity by breaking it into local networks to assist in traffic routing and
 harmonize differences between different protocols, technologies, and administrative ownerships.
+
 iv) Address Resolution Protocol is a network layer protocol used for translating IP into data link layer addresses, since data link layer
 Network Interface Cards do not understand (are transparent to) network layer IP addresses. NIC manufacturers request 48-bit Ethernet
 Addresses from the IEEE to avoid conflict when similar cards appear on the same LAN. It works by allowing hosts to main lookup tables of
 IP/data link address mappings for LAN. If host A has no entry for host B, A broadcasts ARP requests requesting the data link address for B's
 IP address. B recognizes its IP address and returns an ARP response with its data link address.
-*Also DHCP/ICMP/NAT
 
 3a
 Confidentiality: Prevent disclosure of information to unauthorised users + prevent analysis of traffic characteristics.
@@ -114,9 +115,11 @@ i) Packet Filtering Routers (a.k.a. Chokes, Screening Filters) drops packets bas
 packets. For performance reasons, IP filtering is usually performed by a process within the operating system kernel of a router. If multiple
 firewalls are used, the first marks certain packets for more exhaustive examination by a later firewall, allowing ‘clean’ packets to proceed.
 It is possible to filter based on sequences of IP packets, for example, to prevent access to an FTP server before a login has been performed.
+
 ii) Circuit-level Gateways that provide higher-level processing e.g. authenticating users, cleaning/redirecting data, logging, and
 auditing/accounting. Gateway apps normally run on BASTION HOSTS. Can drop connections based on destination, incorrect connection
 packets, time, volume. Normally used for Inside-to-Outside connections. Client normally recompiled to connect to CL-Gateway port.
+
 iii) Application-level Gateways acts as a proxy for an application process. Like CL-GW’s but application-specific (app-knowledgeable). It can
 block/filter/report based on app-level msg content, scan for data leaks, viruses, etc, rewrite data, be configured to limit application
 features but with more processing overhead than CL-GW’s. For example, a policy may be desired that allows certain internal users to make
@@ -142,13 +145,19 @@ Server has a local skeleton for every procedure which can be called by a remote 
 representations if necessary, Access communication primitives to send/receive messages. Binding/IDL. While RPC encapsulates via OS processes,
 RMI seeks to do it through objects. RMI = RPC + Object-orientation
 RMI's Advantages over RPC:
+
 i) RPC calls remote functions exported into a server. RMI uses references to remote objects to invoke their methods, and also pass and return
 more remote object references that can be distributed among many JVM instances, so it's much more powerful.
+
 ii) RMI support inheritance, allowing interfaces to extend, evolve, specialise behaviour. Can replace existing object and still be compatible
 with clients. RPC must have identical interfaces (no inheritance).
+
 iii) Parameterised exceptions -> Simpler error handling.
+
 iv) type checking -> fewer errors
+
 v) Access transparency: Remote and local services accessed by same method/syntax
+
 vi) Location transparency: A user could access files from servers or locally in the same way. (Write once, write everywhere)
 
 c
@@ -160,6 +169,7 @@ Maybe Call Semantics: If the call fails, the client cannot tell for sure whether
 lost or the server crashed. If the call succeeds, the procedure will have been executed exactly once if using a communication service which
 does not generate duplicate messages. It's lightweight but leaves issues of state consistency of the server. With respect to the client, up to
 the application programmer.
+
 ii) bool call (request, reply) {
     int retries = n;
     while(retries--) {
@@ -170,10 +180,12 @@ ii) bool call (request, reply) {
 At-Least-Once retries up to n times. if the call succeeds then procedure has been executed at least once but server may receive up to n
 duplicated messages. Useful for idempotent server operations i.e they may be executed many times and have the same effect on server state as a
 single execution.
+
 iii) At-Most-Once guarantees that the remote procedure is either never executed or executed partially (due to a server crash) or once. To do
 this, the server must keep track of request identifiers and discard retransmitted requests that have not completed execution. On the other
 hand, the server must buffer replies and retransmit until acknowledged by the client. Most RPC systems guarantee at-most-once semantics in
 the absence of server crashes.
+
 iv) Transactional (Zero or Once) guarantees that either the procedure is completely executed or it is not executed at all. To ensure this, the
 server must implement an atomic transaction for each RPC i.e., either the state data in the server is updated permanently by an operation
 taking it from one consistent state to another or it is left in its original state, if the call is aborted or a failure occurs. This requires
