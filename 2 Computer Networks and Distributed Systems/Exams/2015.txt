@@ -21,11 +21,12 @@ Bandwidth    | Guarenteed/Unused Band Wasted | Variable/Uses what's required   |
 Charge       | Time                          | Packet                          | Depends
 
 c
-DNS is not really needed if one can memorize digit strings, and can update thousands of IP addresses changes, locally or rely on a central server that may be down when one's
-homework is due. WWW may not be neccessary since we have other internet applications like mail, and cate. Nonetheless, the DNS can dynamically resolve IP addresses using
-DHCP, administer domain names to avoid conflict, and to build hierachical domains suffixes that have meaning. Its distributed nature improves reliability.
-The second UDP query likely benefited from DNS caching. The DNS server likely responded to the second request with a stored response whose TTL has yet to expire, instead of
-iteratively querying other DNS servers again for a resolution.
+DNS is not really needed if one can memorize digit strings, and can update thousands of IP addresses changes, locally or rely on a central
+server that may be down when one's homework is due. WWW may not be neccessary since we have other internet applications like mail, and cate.
+Nonetheless, the DNS can dynamically resolve IP addresses using DHCP, administer domain names to avoid conflict, and to build hierachical
+domains suffixes that have meaning. Its distributed nature improves reliability.
+The second UDP query likely benefited from DNS caching. The DNS server likely responded to the second request with a stored response whose TTL
+has yet to expire, instead of iteratively querying other DNS servers again for a resolution.
 
 d
 Why UDP
@@ -42,21 +43,24 @@ Why TCP
 4) Detects congestion by monitoring packet loss caused by store-forwarding (drops packets if buffer becomes full), and establishes flow
 control by using the smaller of receiver or congestion window. Measures RTT using timeouts.
 5) Secure SSH connections
+
 e
 Wireless communication is prone to noise and collision, thus packet loss. TCP regards packet losses as network congestion and will therefore
 reduce the window and rate of transfer. More reliability can be added by utilizing the Logical Link Control to detect(CRC/Odd Bit) or correct
 errors(FEC). Packets can be framed with count/flags to detect loss.
 
 2a
-Networks need to choose when and how much resources to give mediums based on contention, fairness access latency. They can be allocated statically with bounded latency to
-transmit like TDM, FDM and CDMA, but that leads to wasted bandwidth. Dynamically allocating resources on demand leads to collision and contention using CSMA.
+Networks need to choose when and how much resources to give mediums based on contention, fairness access latency. They can be allocated
+statically with bounded latency to transmit like TDM, FDM and CDMA, but that leads to wasted bandwidth. Dynamically allocating resources
+on demand leads to collision and contention using CSMA.
 
 b
-CSMA CD detects collision and minimizes recovery time by listening to the channel while sending. If collision is detected, it backs off immediately and waits for random
-time before re-transmitting. This ensure equal access but unbounded access time, especially long times at heavy loads due to exponential back-of.
-CSMA CA avoids collision and the Hidden/Exposed Terminal Problems of distributed MAC by sending/receiving short Ready-to/Clear-to Send frames. RTS/CTS are essentially
-tokens which forces devices to remain idle unless premitted to send. If channel is not idle, back-off time is determined by Inter Frame Spacing and grows expotentially.
-CD is usually used on wired connections where collision detection is possible. For wireless signals which broadcasts in every direction, it is costly to detect collision
+CSMA CD detects collision and minimizes recovery time by listening to the channel while sending. If collision is detected, it backs off
+immediately and waits for random time before re-transmitting. This ensure equal access but unbounded access time, especially long times at
+heavy loads due to exponential back-of. CSMA CA avoids collision and the Hidden/Exposed Terminal Problems of distributed MAC by
+sending/receiving short Ready-to/Clear-to Send frames. RTS/CTS are essentially tokens which forces devices to remain idle unless premitted to
+send. If channel is not idle, back-off time is determined by Inter Frame Spacing and grows expotentially. CD is usually used on wired
+connections where collision detection is possible. For wireless signals which broadcasts in every direction, it is costly to detect collision
 (ALOHA), so CA is more preferrable.
 
 c
@@ -66,13 +70,18 @@ HTTP/1.1 allows for a single presistent connection for multiple requests, plus 3
 3(Initial Handshake) + 2*2 + 1*2 + 3(connection release)= 12
 
 d
-i) HTTP is an application layer protocol used by WWW to define message (image/text/etc) format and transmission. It also defines interactions between servers and browsers.
-It establishes a TCP connection with a server and use GET/POST/PUT or other methods to request/send information. It identifies users and maintains state through cookies. 
-ii) Switches operate on Data Link Layer. It listens to traffic and builds address/port table mappings based on source and destination MAC addresses in the header using loop-free spanning tree. If source port, don't forward. If port for destination MAC known, forward only to that port. Else flood all but source port to find destination.
-It is used to join LANs together, thus forming the ends of collision domains and administration. When speeds between different networks differ, it can store and forward (check CRC) or Cut-through (No Check). All this adds transmission and processing delays.
-iii) Subnets exist on the network layer to help reduce network complexity by breaking it into local networks to assist in traffic routing and harmonize differences between
-different protocols, technologies, and administrative ownerships.
-iv) Address Resolution Protocol is a network layer protocol used for translating IP into data link layer addresses, since data link layer Network Interface Cards do not understand (are transparent to) network layer IP addresses. NIC manufacturers request 48-bit Ethernet
+i) HTTP is an application layer protocol used by WWW to define message (image/text/etc) format and transmission. It also defines interactions
+between servers and browsers. It establishes a TCP connection with a server and use GET/POST/PUT or other methods to request/send information.
+It identifies users and maintains state through cookies. 
+ii) Switches operate on Data Link Layer. It listens to traffic and builds address/port table mappings based on source and destination MAC
+addresses in the header using loop-free spanning tree. If source port, don't forward. If port for destination MAC known, forward only to that
+port. Else flood all but source port to find destination.
+It is used to join LANs together, thus forming the ends of collision domains and administration. When speeds between different networks
+differ, it can store and forward (check CRC) or Cut-through (No Check). All this adds transmission and processing delays.
+iii) Subnets exist on the network layer to help reduce network complexity by breaking it into local networks to assist in traffic routing and
+harmonize differences between different protocols, technologies, and administrative ownerships.
+iv) Address Resolution Protocol is a network layer protocol used for translating IP into data link layer addresses, since data link layer
+Network Interface Cards do not understand (are transparent to) network layer IP addresses. NIC manufacturers request 48-bit Ethernet
 Addresses from the IEEE to avoid conflict when similar cards appear on the same LAN. It works by allowing hosts to main lookup tables of
 IP/data link address mappings for LAN. If host A has no entry for host B, A broadcasts ARP requests requesting the data link address for B's
 IP address. B recognizes its IP address and returns an ARP response with its data link address.
@@ -130,7 +139,8 @@ value since Client and Server processes do not share memory and thus Client poin
 parameters and method name in messages, and to decode them when receiving. Client has a local stub for every remote procedure it can call.
 Server has a local skeleton for every procedure which can be called by a remote client. Stub procedures perform: Parameter marshalling
 (packing/assemble parameters in communication system messages), Unpacking received messages and assigning values to parameters, Transform data
-representations if necessary, Access communication primitives to send/receive messages. Binding/IDL. While RPC encapsulates via OS processes, RMI seeks to do it through objects. RMI = RPC + Object-orientation
+representations if necessary, Access communication primitives to send/receive messages. Binding/IDL. While RPC encapsulates via OS processes,
+RMI seeks to do it through objects. RMI = RPC + Object-orientation
 RMI's Advantages over RPC:
 i) RPC calls remote functions exported into a server. RMI uses references to remote objects to invoke their methods, and also pass and return
 more remote object references that can be distributed among many JVM instances, so it's much more powerful.
