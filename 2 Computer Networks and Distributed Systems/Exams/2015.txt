@@ -12,12 +12,14 @@ Implementation     | Simple   | Complex   | POP
 *Multipurpose Internet Mail Extensions (MIME) has 7-bit ASCII text, designed exclusively for English
 
 b
-Feature      | Circuit                       | Packet                          | Winner
-Delivery     | In order                      | Out-of-order when congested     | Circuit
-Node Failure | Connection Breaks             | Reroutes                        | Packet
-Overhead     | Initial Connection Set-up     | Every Packet Addressing/Control | Depend on Transfer Size
-Bandwidth    | Guarenteed/Unused Band Wasted | Variable/Uses what's required   | Depends
-Charge       | Time                          | Packet                          | Depends
+Feature      | Circuit                   | Packet                          | Winner
+Delivery     | In order                  | Out-of-order                    | Circuit
+Bandwidth    | Guarenteed                | Variable                        | Circuit
+Bandwidth    | Unused Bandwidth Wasted   | Uses what's required            | Packet
+Node Failure | Connection Breaks         | Reroutes                        | Packet
+Congestion   | Slow Connection           | Packets delayed, out-of-order   | Depends
+Charge       | Time                      | Packet                          | Depends
+Overhead     | Initial Connection Set-up | Every Packet Addressing/Control | Depend on Transfer Size
 
 c
 DNS is not really needed if one can memorize digit strings, and can update thousands of IP addresses changes, locally or rely on a central
@@ -31,7 +33,7 @@ d
 Why UDP
 1) Fast/bursty transfers which costs more bandwidth if a guarenteed connection is established (DHCP)
 2) Requests that does not require confirmation (like DNS)
-3) Real-time services that are robust to packet losses or delay/out-of-order delivery like VoIP and streaming videos
+3) Real-time applications where the past is irrelevant are robust to packet losses or delay/out-of-order delivery like VoIP and streaming videos
 4) Multi/Broadcast: A host cannot establish connections with everyone
 5) UDP packets can be reorganized into different protocols imitating certain TCP features like checksum
 6) Less CPU processes due to less router and data processing overheads
@@ -51,7 +53,7 @@ errors(FEC). Packets can be framed with count/flags to detect loss.
 2a
 Networks need to choose when and how much resources to give mediums based on contention, fairness access latency. They can be allocated
 statically with bounded latency to transmit like TDM, FDM and CDMA, but that leads to wasted bandwidth. Dynamically allocating resources
-on demand leads to collision and contention using CSMA.
+on demand leads to collision and contention using CSMA or lower performance using Token Passing.
 
 b
 CSMA CD detects collision and minimizes recovery time by listening to the channel while sending. If collision is detected, it backs off
@@ -73,10 +75,10 @@ i) HTTP is an application layer protocol used by WWW to define message (image/te
 between servers and browsers. It establishes a TCP connection with a server and use GET/POST/PUT or other methods to request/send information.
 It identifies users and maintains state through cookies. 
 
-ii) Switches operate on Data Link Layer. It listens to traffic and builds address/port table mappings based on source and destination MAC
-addresses in the header using loop-free spanning tree. If source port, don't forward. If port for destination MAC known, forward only to that
-port. Else flood all but source port to find destination.
-It is used to join LANs together, thus forming the ends of collision domains and administration. When speeds between different networks
+ii) Switches and Bridges operate on Data Link Layer. It listens to traffic and builds address/port table mappings based on source and
+destination MAC addresses in the header using loop-free spanning tree. It purges entries that have their TTL expired. If source port, don't
+forward. If port for destination MAC known, forward only to that port, else flood all but source port to find destination.
+They used to join LANs together, thus forming the ends of collision domains and administration. When speeds between different networks
 differ, it can store and forward (check CRC) or Cut-through (No Check). All this adds transmission and processing delays.
 
 iii) Subnets exist on the network layer to help reduce network complexity by breaking it into local networks to assist in traffic routing and
