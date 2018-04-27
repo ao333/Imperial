@@ -77,9 +77,6 @@ in the header. Set-up/tear-down overhead. Switches/Routers need to maintain circ
 
 2b
 i) 2 Physical Layer Slides 12-13
-A) Binary Signaling (TTL Encoding): 1=Bar, 0=Nothing
-B) Manchester Encoding in Tetris Terms: 1=Left T, 0=Left S 
-C) Differential Manchester Encoding: If 1 transitions into 0, Regular S, else Inverted S
 
 ii) Sending 0001100 could be heard as 001100 if timing is wrong. Need synchronisation between sender/receiver, for high speed transmissions.
 1) Accurate clocks, which are expensive 

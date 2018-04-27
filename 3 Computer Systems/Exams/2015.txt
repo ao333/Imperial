@@ -35,7 +35,8 @@ Control unit checks if register i is 0.
 If 0, the memory address of the instruction will be loaded into the program counter.
 One can also include ALU info which does the testing (comparison).
 iv) A Jump instruction permanently changes the program counter. Jumps typically have a conditional flag allowing the program to jump to a
-different address if the flag tests true, although one can also jump unconditionally. This can be used to create a nested function call by jumping "backwards" and then executing statement calls in order from there, ultimately leading back to the jump instruction.
+different address if the flag tests true, although one can also jump unconditionally. This can be used to create a nested function call by
+jumping "backwards" and then executing statement calls in order from there, ultimately leading back to the jump instruction.
 The jump instruction will, if used correctly, eventually be bypassed due to some condition which is also how while and for loops work.
 Jump is also used to end a nested loop. Jump acts like a GOTO whereas CALL acts more like a function call.
 

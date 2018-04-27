@@ -31,19 +31,19 @@ has yet to expire, instead of iteratively querying other DNS servers again for a
 
 d
 Why UDP
-1) Fast/bursty transfers which costs more bandwidth if a guarenteed connection is established (DHCP)
-2) Requests that does not require confirmation (like DNS)
-3) Real-time applications where the past is irrelevant are robust to packet losses or delay/out-of-order delivery like VoIP and streaming videos
-4) Multi/Broadcast: A host cannot establish connections with everyone
-5) UDP packets can be reorganized into different protocols imitating certain TCP features like checksum
-6) Less CPU processes due to less router and data processing overheads
+ Fast/bursty transfers which costs more bandwidth if a guarenteed connection is established (DHCP)
+ Requests that does not require confirmation (like DNS)
+ Real-time applications where the past is irrelevant are robust to packet losses or delay/out-of-order delivery like VoIP and streaming videos
+ Multi/Broadcast: A host cannot establish connections with everyone
+ UDP packets can be reorganized into different protocols imitating certain TCP features like checksum
+ Less CPU processes due to less router and data processing overheads
 Why TCP
-1) Big files that have huge overhead if transfered packet-by-packet (Establishing a connection with data stream is more efficient)
-2) Important transfers that make use of full duplex (sequence/acknowledge number detects loss/duplicates and ensures orderly delivery)
-3) Fast senders should pause for slow receivers to prevent buffer overflows
-4) Detects congestion by monitoring packet loss caused by store-forwarding (drops packets if buffer becomes full), and establishes flow
-control by using the smaller of receiver or congestion window. Measures RTT using timeouts.
-5) Secure SSH connections
+ Big files that have huge overhead if transfered packet-by-packet (Establishing a connection with data stream is more efficient)
+ Important transfers that make use of full duplex (sequence/acknowledge number detects loss/duplicates and ensures orderly delivery)
+ Fast senders should pause for slow receivers to prevent buffer overflows
+ Detects congestion by monitoring packet loss caused by store-forwarding (drops packets if buffer becomes full)
+ Establishes flow control by using the smaller of receiver or congestion window. Measures RTT using timeouts.
+ Secure SSH connections
 
 e
 Wireless communication is prone to noise and collision, thus packet loss. TCP regards packet losses as network congestion and will therefore
