@@ -81,7 +81,7 @@ asynchronus. Also, before calling the interrupt handler, a pentium CPU pushes th
 IO is much slower than CPUs. This problem is multiplied in multi-user systems. Thus interrupts are necessary to allow the CPU to schedule
 other user processes to ensure responsiveness and fairness.
 
-b (More Details in 2014 2-a-iv)
+b
 1) Fetch the instruction: The next instruction is fetched from the memory address that is currently stored in the program counter and stored
 into the instruction register. At the end of the fetch operation, the PC points to the next instruction that will be read at the next cycle.
 2) Decode the instruction: During this cycle the encoded instruction present in the IR is interpreted by the decoder.

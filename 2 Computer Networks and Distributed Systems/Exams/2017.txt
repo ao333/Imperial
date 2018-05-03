@@ -132,7 +132,7 @@ Connection Release
       FIN/SEQ=X>
       <FIN/SEQ=Y,ACK=X+1
       ACK/ACK=Y+1>
-*Retransmission
+*Retransmission, 0 used for simplicity (use an offset)
 
 b
 Time Division Multiplexing (TDM): 231 231... Used in telephone networks, TV schedule

@@ -56,13 +56,50 @@ statically with bounded latency to transmit like TDM, FDM and CDMA, but that lea
 on demand leads to collision and contention using CSMA or lower performance using Token Passing.
 
 b
-CSMA CD detects collision and minimizes recovery time by listening to the channel while sending. If collision is detected, it backs off
-immediately and waits for random time before re-transmitting. This ensure equal access but unbounded access time, especially long times at
-heavy loads due to exponential back-of. CSMA CA avoids collision and the Hidden/Exposed Terminal Problems of distributed MAC by
-sending/receiving short Ready-to/Clear-to Send frames. RTS/CTS are essentially tokens which forces devices to remain idle unless premitted to
-send. If channel is not idle, back-off time is determined by Inter Frame Spacing and grows expotentially. CD is usually used on wired
-connections where collision detection is possible. For wireless signals which broadcasts in every direction, it is costly to detect collision
-(ALOHA), so CA is more preferrable.
+CSMA/CD (Collision Detection)
+  Listen to channel while sending
+  If collision, abort signal immediately
+  Wait random time and try again
+Properties
+  Does not waste channel sending broken frames
+  Gives unbounded time to access network
+  Designed for fair access
+Ensure sender still sending when collision noise arrives
+  Must send for twice the propagation delay
+802.3 allows for 2.5 km max LAN (with repeaters)
+  Specifies minimum frame length that takes at least 50µs to propagate (includes 4 repeaters)
+  Assuming 100 ns transmission delay for sending 1 bit (10 Mbps link), this means at least 500 bits, rounded up to 512 (safety), hence the pad
+(7 + 1 + 2 + 2 + 2 + 46 + 4) ? 8 = 512 bits
+  Takes 51.2µs on a 10 Mbps link
+  Time to detect collision over longest network while still transmitting
+Must avoid repeated collisions At nth retry, wait between 0 and 2^n?1 slot times (51.2µs)
+  Do this up to a maximum of 1023 slot times
+  Give up on 16th collision
+Properties
+  Low delay if frames of 2 hosts collide
+  Reasonable delay if frames of many hosts collide
+Hidden terminal problem
+  Signals from A and C collide (at B) but A and C cannot hear each other to avoid the collision
+Exposed terminal problem
+  B and C falsely conclude that they
+  cannot send at the same time
+
+CSMA/CA (Collision Avoidance)
+  sender and receiver initially exchange short frames other stations can overhear
+  RTS (Ready to Send) - request the channel
+  CTS (Clear To Send) - response to RTS frame
+Other stations (A, D) hear exchange (RTS and/or CTS)
+Stations infer for how long the channel will be busy (RTS and CTS frames include the size)
+ACK (Acknowledgement) - sent on receipt of frame (provides efficient collision recovery)
+Repeated failures to transmit result in greater back-off time
+Diagram: 3 Data Link Layer:P.34
+  Station with frame to transmit senses medium and waits until it is idle
+  When idle, wait for back-off time
+  If still idle, transmit data
+  If busy, wait until idle and then wait for back-off time
+  Back-off time is adjusted exponentially and influenced by IFS (see next slide) and overheard RTS/CTS frames
+  Distributed Coordination Function (DCF) as stations act independently
+  Collisions are costly as the entire frame is transmitted
 
 c
 *Assuming no retransmission, HTTP/1.0 auto closes connections and requires a new 3-TCP-packet handshake for every request:
@@ -210,5 +247,5 @@ rank(studentid,projectid,myrank){
 listrank(studentid,projectid,myrank){
   myrank = rankings[projectid][studentid];
 }
-*Both of these operations are idempotent in that one or more execution have the same effect, so they can be repeated.
+Both of these operations are idempotent in that one or more execution have the same effect, so they can be repeated.
 Consequently they can be used with at-least-once semantics.

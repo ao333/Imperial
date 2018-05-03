@@ -16,14 +16,14 @@ QvSv(PvR)v~(PvR)                     Xv~X/True/Tautology
 2a
 i) EX,Y[tubeline(X)^tubeline(Y)^~(X=Y)^~EA,B,C(tubeline(A)^tubeline(B)^tubeline(C)^~(A=B)^~(B=C)^~(A=C)]
    ^AS[onNet(S)->EX(tubeline(X)^servedBy(S,X)]
-   ^ES[onNet(S)^EX(tubeline(X)^servedBy(S,X))^~EA,B(tubeline(A)^tubeline(B)^~(A=B)^servedBy(S,A)^servedBY(S,B))]
+   ^ES[onNet(S)^EX(tubeline(X)^servedBy(S,X))^~EA,B(tubeline(A)^tubeline(B)^servedBy(S,A)^servedBY(S,B)^~(A=B))]
 
-ii) AL[tubeline(L)->ES1,S2(onNet(S1)^onNet(S2)^~(S1=S2)^servedBy(S1,L)^servedBy(S2,L)]
+ii) AL[tubeline(L)->ES1,S2(onNet(S1)^onNet(S2)^servedBy(S1,L)^servedBy(S2,L)^~(S1=S2)]
     ^AX,Y,S[tubeline(X)^tubeline(Y)^~(X=Y)^posChange(X,Y,S)<->onNet(S)^servedBy(S,X)^servedBY(S,Y)]
 
-iii) AP,L[tubeline(L)^travel(P,L)->EV(validTravelDoc(V,P)^possess(P,V)]
+iii) AV,P[~(validTravelDoc(V,P)^possess(P,V))->EL~(tubeline(L)^travel(P,L))]
 
-iv) AV,P(validTravelDoc(V,P)->freedomPass(V)^over65(P)^possess(P,V) v dayTicket(V) v seasonTicket(V)
+iv) AV,P(validTravelDoc(V,P)<->(freedomPass(V)^over65(P)) v dayTicket(V) v seasonTicket(V)
 
 b
 1. AS1,S2,C1,C2[cost(S1,S2,C1)^cost(S2,S1,C2)->C1=C2]
@@ -45,88 +45,101 @@ b
 4
 */
 
-#include <iostream>
-#include <string>
-#include <vector>
+#include<iostream>
+#include<string>
+#include<vector>
 using namespace std;
 
-int budget = 850;
-float baseScore = 100;
-
-class Component {
-private:
-	string make;
-public:
-	int price;
-	Component(string a, int b) : make(a), price(b) {}
-	virtual float get_score() = 0;
-	virtual int get_price() = 0;
-};
-
-class RAM :public Component {
-private:
-	int size;
-public:
-	RAM(string a, int b, int c) : Component(a, b), size(c) {}
-	float get_score() { return size * 8 + price * 0.1; }
-	int get_price() { return price; }
-};
-
-class IO :public Component {
-private:
-	float responseTime;
-public:
-	IO(string a, int b, float c) : Component(a, b), responseTime(c) {}
-	float get_score() { return price * 0.2 + (50 / responseTime); }
-	int get_price() { return price; }
-};
-
-class Laptop {
-private:
-	int baseCost;
-public:
-	vector<Component*> comp;
-	Laptop(int a, vector<Component*> b) : baseCost(a), comp(b) {}
-};
+class Component;
+class Laptop;
 
 class Employee {
 private:
 	string name;
-	Laptop* laptop;
+	Laptop *laptop;
+	static float budget;
 public:
-	Employee(string a) : name(a) {}
-	bool order_laptop(int base_cost, vector<Component*> c) {
-		int totalCost = base_cost;
-		for (int i = 0; i < c.size(); i++) {
-			totalCost += c[i]->get_price();
-		}
-		if (totalCost > budget) return false;
-		
-		laptop = new Laptop(totalCost, c);
-		for (int i = 0; i < c.size(); i++) {
-			laptop->comp.push_back(c[i]);
-		}
-	}
-	int get_score() {
-		float score = baseScore;
-		for (int i = 0; i < 4; i++) { //size not working
-			score += laptop->comp[i]->get_score();
-			 //cout << score << endl;
-		}
-		return score;
-	}
+	Employee(string n) :name(n) { laptop = NULL; }
+	bool order(Laptop *l);
+	bool addComponent(Component *c);
+	float getPerformance();
 };
+class Laptop {
+private:
+	float base_cost;
+	vector<Component*> coms;
+public:
+	Laptop(float b) :base_cost(b) {};
+	float get_price();
+	void add(Component *c);
+	float getPerformance();
+};
+class Component {
+protected:
+	float price;
+	string make;
+public:
+	Component(float p, string m) :price(p), make(m) {};
+	virtual float score() = 0;
+	float get_price() { return price; }
+};
+
+class RAM :public Component {
+private:
+	float size;
+public:
+	RAM(float p, string m, float s) :Component(p, m), size(s) {};
+	float score();
+};
+class IO : public Component {
+private:
+	float time;
+public:
+	IO(float p, string m, float t) :Component(p, m), time(t) {};
+	float score();
+};
+
+bool Employee::order(Laptop *l) {
+	if (l->get_price() > budget) return false;
+	laptop = l;
+	return true;
+}
+bool Employee::addComponent(Component *c) {
+	if (laptop->get_price() + c->get_price() > budget) return false;
+	laptop->add(c);
+	return true;
+}
+float Employee::getPerformance() { return laptop->getPerformance(); }
+float Employee::budget = 850;
+
+float Laptop::get_price() {
+	float sum = 0;
+	for (int i = 0; i < coms.size(); i++) sum += coms[i]->get_price();
+	return sum + base_cost;
+}
+float Laptop::getPerformance() {
+	if (coms.size() == 0) return 100;
+	float per = 0;
+	for (int i = 0; i < coms.size(); i++) per += coms[i]->score();
+	return per;
+}
+void Laptop::add(Component *c) {coms.push_back(c); }
+
+float RAM::score() { return size * 8 + price * 0.1; }
+float IO::score() { return price * 0.2 + (50 / time); }
 
 int main() {
 	Employee Andrew("Andrew");
-	vector<Component*> order;
-	order.push_back(new RAM("crucial", 90, 8));
-	order.push_back(new RAM("crucial", 90, 8));
-	order.push_back(new IO("samsung", 150, 5.5));
-	Andrew.order_laptop(500, order);
-	cout << Andrew.get_score() << endl;
-
-	order.push_back(new RAM("corsair", 50, 4)); //need to implement addComponent
-	Andrew.order_laptop(500, order);
-	cout << Andrew.get_score() << endl;
+	Laptop laptop(500);
+	RAM r1(90, "Crucial", 8);
+	RAM r2(90, "Crucial", 8);
+	IO i1(150, "Samsung", 5.5);
+	laptop.add(&r1);
+	laptop.add(&r2);
+	laptop.add(&i1);
+	Andrew.order(&laptop);
+	cout << Andrew.getPerformance() << endl;
+	RAM r3(50, "Corsair", 4);
+	Andrew.addComponent(&r3);
+	cout << Andrew.getPerformance() << endl;
 }

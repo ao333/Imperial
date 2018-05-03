@@ -31,10 +31,7 @@ i) Networks need to choose when and how much resources to give mediums based on 
 statically with bounded latency to transmit like TDM, FDM and CDMA, but that leads to wasted bandwidth. Dynamically allocating resources
 on demand leads to collision and contention using CSMA or lower performance using Token Passing.
 
-ii) CSMA CD detects collision (2 devices sending at the same time, leading to garbled data) and minimizes recovery time by listening to the
-channel while sending. If collision is detected, it backs off immediately and waits for random time before re-transmitting. This ensure fair
-access but unbounded access time, especially long times at heavy loads due to exponential back-of.
-* Diagram is a modified version of CDMA/CA on (3 Data Link Layer slide 34).
+ii) 2015:2b
 
 iii)
 End-to-end propagation time = length / transmission speed
@@ -55,7 +52,8 @@ forward. If port for destination MAC known, forward only to that port, else floo
 They used to join LANs together, thus forming the ends of collision domains and administration. When speeds between different networks
 differ, it can store and forward (check CRC) or Cut-through (No Check). All this adds transmission and processing delays.
 
-2a i)
+2a
+i)
 Feature      | Circuit                   | Packet                          | Winner
 Delivery     | In order                  | Out-of-order                    | Circuit
 Bandwidth    | Guarenteed                | Variable                        | Circuit

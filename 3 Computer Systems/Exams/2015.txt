@@ -34,13 +34,18 @@ iii) Instruction is brought into Ri with the code.
 Control unit checks if register i is 0.
 If 0, the memory address of the instruction will be loaded into the program counter.
 One can also include ALU info which does the testing (comparison).
-iv) A Jump instruction permanently changes the program counter. Jumps typically have a conditional flag allowing the program to jump to a
-different address if the flag tests true, although one can also jump unconditionally. This can be used to create a nested function call by
-jumping "backwards" and then executing statement calls in order from there, ultimately leading back to the jump instruction.
-The jump instruction will, if used correctly, eventually be bypassed due to some condition which is also how while and for loops work.
-Jump is also used to end a nested loop. Jump acts like a GOTO whereas CALL acts more like a function call.
+iv) Jumps typically have a conditional flag allowing the program to jump to a different address if the flag tests true, although one can also
+jump unconditionally. This can be used to create a nested function call by jumping "backwards" and then executing statement calls in order.
+Jump will, eventually be bypassed due to some condition which is also how while and for loops work. Jump is also used to end a nested loop.
+Jump acts like a GOTO whereas CALL acts more like a function call.
 
 b
+100H A[0]          Value of A[0]
+150H A[n-1]        Value of A[n-1]
+
+200H 100H          Address of A[0]
+250H 150H          Address of A[n-1]
+
 081H LOAD R0,200H  Load address of A[0] (100H) into R0 (for incrementing)
 082H LOAD R1,250H  Load address of A[n-1] (150H) into R1 (for decrementing)
 083H LOAD R2,[R0]  Load value of A[0] into R2
@@ -51,10 +56,6 @@ b
 088H DEC R1        Decrement the address (index) of R1 (149H)
 089H JGT R1,R0,83H If address of R1 > R0, keep looping by jumping to 083H
 08AH STOP          STOP program
-100H A[0]          Value of A[0]
-150H A[n-1]        Value of A[n-1]
-200H 100H          Address of A[0]
-250H 150H          Address of A[n-1]
 
 3d (Assume 1byte=8bits)
 Each block contains 2^13/2=2^12, 2^14/2=2^13, 2^15/2=2^14 pointers
@@ -82,6 +83,3 @@ iii) Page 13086/4096=3.19 (Page 3, thus Frame 6) with offset 13086%4096=798. So 
 *iv) How many bits are required for each page table entry?
 There can be at most 2^24/2^12=2^12 frames in main memory, so a page table entry will require 12 bits for a frame number,
 plus protection, valid-invalid and reference bits.
-
-d
-Multilevel Feedback Queues (Refer to 3 Scheduling.pdf)

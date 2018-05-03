@@ -1,11 +1,5 @@
 1a
-CSMA CD detects collision and minimizes recovery time by listening to the channel while sending. If collision is detected, it backs off
-immediately and waits for random time before re-transmitting. This ensure equal access but unbounded access time, especially long times at
-heavy loads due to exponential back-of. CSMA CA avoids collision and the Hidden/Exposed Terminal Problems of distributed MAC by
-sending/receiving short Ready-to/Clear-to Send frames. RTS/CTS are essentially tokens which forces devices to remain idle unless premitted to
-send. If channel is not idle, back-off time is determined by Inter Frame Spacing and grows expotentially. CD is usually used on wired
-connections where collision detection is possible. For wireless signals which broadcasts in every direction, it is costly to detect collision
-(ALOHA), so CA is more preferrable.
+2015:2b
 
 b
 The Inter-frame Gap is the interval between successive frames from the same host. It allows other hosts to use medium (Initial frame can be
@@ -88,7 +82,7 @@ ii) If the path between A and B breaks, the edge will be weighted infinity. Thus
 from AB to AD-DC-CB. 100+1 iterations to change its path from AB-BC to AD-DC. It will never realize it can't get to B from A, thus it will
 keep iterating until infinity, or until it reaches a hard-coded cap, hence the "count-to-infinity" problem.
 
-3 a
+3a
 At-Least-Once: the system will retry on failure until it receives a reply confirming successfully invocation or timeout.
 bool call (request, reply) {
   int retries = n;

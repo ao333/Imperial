@@ -38,7 +38,7 @@ Data - 0-1500 bytes (We used 2): 0100 1000 0101 0111
 Padding 0-46 (46-2=44): 44 bytes
 FCS 4: 4 bytes of 0
 
-iii) 2 Physical Layer (Slides 12-13)
+iii) 2 Physical Layer:P.12-13
 
 2a
 i)
@@ -94,7 +94,7 @@ C  6  2  0  2  7  10
 D  7  3  2  0  9  8
 E  ?  9  7  9  0  4 
 F  ?  11 10 8  4  0
-ii)
+iii)
    A  B  C  D  E  F
 A  0  4  6  7  13 15
 B  4  0  2  3  9  11
@@ -121,8 +121,7 @@ Down 3
 A 0 2 2+11=13
 B 2 0 2+13=15
 
-ii)
-Use link state routing
+ii) Use link state routing
 Define INF to be the network diameter + 1, i.e. 4 in this example
 Include the paths taken in the distance vector messages (which is what BGP does)
 
