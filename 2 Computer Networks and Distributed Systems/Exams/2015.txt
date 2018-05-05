@@ -92,7 +92,7 @@ Other stations (A, D) hear exchange (RTS and/or CTS)
 Stations infer for how long the channel will be busy (RTS and CTS frames include the size)
 ACK (Acknowledgement) - sent on receipt of frame (provides efficient collision recovery)
 Repeated failures to transmit result in greater back-off time
-Diagram: 3 Data Link Layer:P.34
+Diagram:\3 Data Link Layer:34
   Station with frame to transmit senses medium and waits until it is idle
   When idle, wait for back-off time
   If still idle, transmit data

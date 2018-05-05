@@ -97,7 +97,7 @@ from the ALU, the PC may be updated to a different address from which the next i
 5) When an interrupt occurs, the CPU will complete the current instruction, push all data related to the current process then call the
 interrupt handler which will point to the address of the relevant Interrupt Descriptor Table number.
 
-c *More Details in 2014 2-a-iv
+c *2014:2aiv
 A vectored interrupt allows the interrupting device direct the processor to the appropriate interrupt service routine. This is in contrast to
 a polled interrupt system, in which a single interrupt service routine must determine the source of the interrupt by checking all potential
 interrupt sources, a slow and relatively laborious process.

@@ -5,7 +5,7 @@ p = (T1 - T0 - h)/2
 (307 - 274 - 2)/2) = 15.5
 15.5 is outlier, thus (6+5)/2=5.5ms
 
-b NTP ???
+b NTP
 P = ((T2-T1) - (T4 - T3))/2
 Train->Workstation->TimeServer->Satellites->Train = 10+5+10+10=35
 (360km/h)*35ms=360000/(60*60*1000)*35=3.5

@@ -74,7 +74,7 @@ iv) Circuit switched networks can create virtual circuits by routing packets usi
 in the header. Set-up/tear-down overhead. Switches/Routers need to maintain circuit information (tables). Less routing overhead compared to PS
 
 2b
-i) 2 Physical Layer Slides 12-13
+i) \2 Physical Layer:12-13
 
 ii) Sending 0001100 could be heard as 001100 if timing is wrong. Need synchronisation between sender/receiver, for high speed transmissions.
 1) Accurate clocks, which are expensive 

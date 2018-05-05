@@ -1,5 +1,4 @@
-1a
-2015:2b
+1a 2015:2b
 
 b
 The Inter-frame Gap is the interval between successive frames from the same host. It allows other hosts to use medium (Initial frame can be

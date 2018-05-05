@@ -66,7 +66,8 @@ b
 904H Z
 905H 501H       Memory location for first line of code
 
-4a: Direct Memory Access (DMA) is a technique to relieve the CPU from the task of handling low-level device I/O. A special hardware device
+4a
+Direct Memory Access (DMA) is a technique to relieve the CPU from the task of handling low-level device I/O. A special hardware device
 called a DMA controller takes over the responsibility of handling I/O. Simple DMA controllers can only handle a single read at a time, whereas
 more sophisticated ones support multiple reads and putting the results at different memory locations (scattergather DMA).
 Interrupts are needed to return control of the Memory Bus to the CPU.

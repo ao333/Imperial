@@ -1,5 +1,5 @@
 /*
-2a \1 Logic\3.4S Coursework
+2a \Imperial-Solutions\4 Program Design and Logic\1 Logic\3.4S Coursework
 
 b i)
 1. AX[P(X)->Q(X)]
@@ -169,4 +169,3 @@ int main() {
 
 	cout >> JE->compute();
 }
-
