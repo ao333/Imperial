@@ -105,7 +105,7 @@ parent, on the way back. This means that if we want a "Parent first, Child later
 BFS does find parents before children, so it's already topologically sorted. Reversing BFS would make it wrong instead. 
 
 c
-i) Kruskal: Sorting Edges (ELogE), Disjoint sets (LogV), Build MST Loop (ELogV) -> ELogV
+i) Reverse Kruskal: Sorting Edges (ELogE), Disjoint sets (LogV), Build MST Loop (ELogV) -> ELogV
 
 ii) If C is a cycle, and e is the highest edge, and e is not any MST of G, then by looping REVERSE-DELETE, T will eventually become acyclic.
 It will span G because it will still be a MST. it is minimal, because there are no higher weighted edge to REVERSE-DELETE (end of loop).
