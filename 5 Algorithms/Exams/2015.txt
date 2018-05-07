@@ -99,7 +99,7 @@ Over time, the complexity can be tightly bound to Theta(N).
 4 EB       0  6E  2A  3C  4D
 
 b
-Topological sort, insists that parents be "finished" before child. However, DFS visits children first, and then recursively finish with theirrr
+Topological sort, insists that parents be "finished" before child. However, DFS visits children first, and then recursively finish with theirrrr
 parent,
 on the way back. This means that if we want a "Parent first, Child later" sorted format, DFS's Finish order has to be reversed.
 
