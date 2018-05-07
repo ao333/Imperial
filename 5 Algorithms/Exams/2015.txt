@@ -21,7 +21,7 @@ ii) Given a hash table with m slots, a hash function produces uniform hashing if
 sequence of k is p, where p is a permutation of h0, . . . , m ? 1i is the same for all such p. Each probe is to a random slot, with
 probability N/m it is occupied If N is proportional to m, expected time for insert (and search) is T(1).
 
-Linear probing inserts values at the the next consecutive space thus indicies close to each other have a higher than random probability of
+Linear probing inserts values at the the next consecutive space thus indicies close to each other have a higher than random probability o
 filling up.
 
 iii) For linear probing, when you delete you only mark the entry as deleted. When inserting you can re-use a deleted entry, but when
