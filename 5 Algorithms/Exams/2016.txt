@@ -53,8 +53,8 @@ for v in g
   if not found[v]
     DFS(g, v, found)
 
-found[s] +=1 // Add 1 everytime a found node is touched, to find sum.
 for v in g.adj[s]
+  found[s] +=1 // Add 1 everytime a found node is touched, to find sum.
   if not found[v]
     DFS(g, v, found)
 
