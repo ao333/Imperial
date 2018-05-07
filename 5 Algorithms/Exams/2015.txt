@@ -21,7 +21,7 @@ ii) Given a hash table with m slots, a hash function produces uniform hashing if
 sequence of k is p, where p is a permutation of h0, . . . , m ? 1i is the same for all such p. Each probe is to a random slot, with
 probability N/m it is occupied If N is proportional to m, expected time for insert (and search) is T(1).
 
-Linear probing inserts values at the the next consecutive space thus indicies close to each other have a higher than random probability o
+Linear probing inserts values at the the next consecutive space thus indicies close to each other have a higher than random probability of
 filling up.
 
 iii) For linear probing, when you delete you only mark the entry as deleted. When inserting you can re-use a deleted entry, but when
@@ -30,7 +30,7 @@ count against the load factor. Thus performance degrades to O(n), even if the ac
 
 With linked list chaining, insert/delete are T(1) if the entire dataset is not on one chain (worst case).
 
-iv) The average search/remove time for a chained hash table is the load factor O(N/m) (where N is the number of objects and m is the number of
+iv) The average search/remove time for a chained hash table is the load factor O(N/m) (where N is the number of objects and m is the number o
 slots). This means that when the max load factor is reached, (High N/Low M), collision resolution is at its highest, degrading performance.
 Waiting until the max load factor is reached before copying, results in the new table having a condensed, collision-prone block too, even if
 the overall m is expanded. Thus, it is advisable to expand the table, before the max load factor is reached, for more even distribution.
