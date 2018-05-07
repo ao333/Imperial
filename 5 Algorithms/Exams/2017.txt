@@ -1,8 +1,8 @@
 1a
-i) f(N) <= cg(N) 
+i) f(N) <= c*g(N) 
 100sqrtN+4 <= c*2N
 50/sqrtN+2/N <= c
-N->Inf, 0 <= c
+lim(50/sqrtN+2/N) -> 0<=c -> c exists for every N, True.
 
 ii) X=100sqrt(144)+4=1204 Y=2*144=288, so Choose X
 
@@ -64,9 +64,13 @@ iii)
 Chaining inserts on average and worst case Theta(1) because adding to a linked list is constant time.
 Probing will insert on average N/m while worst is still O(N) (probing until the end of array to find an insertion spot).
 
-iv) Returning or searching in this case depends vastly on collision rate and resolution method. Average search for chinaing is
-N/m (approaches Theta(1) if load factor is low and N proportional to M) while worst case is O(N).
-(every value collides and is stacked within a linked list). For search, the same applies for probing.
+iv)
+Sort the list of keys
+Make new list A
+for each key:
+  Get objects in hash table with key
+  Append objects to A
+*Fetching N items from a hash table takes Theta(N) time, but sorting the keys takes O(NLogN) time, so O(NLogN) overall.
 
 3a
 i)

@@ -43,7 +43,7 @@ i) BigO(Worst/Upper): 0 <= f(N) <= c*g(N), Omega (Lower/Best): 0 <= c*g(N) <= f(
 This means that N^2 is the lower bound, or best case of the algorithm.
 
 ii) 0 <= LogN+2 <= c*LogN/2 | Since Log is always positive, we only have to prove that LogN+2 <= c*LogN/2
-c=>[LogN+2]/[LogN/2]=>[LogN+2]*[2/LogN]=>[2LogN+4]/LogN => 2+(4/LogN) is a constant, therefore C exists. True
+c=>[LogN+2]/[LogN/2]=>[LogN+2]*[2/LogN]=>[2LogN+4]/LogN -> lim(2+(4/LogN)) -> c=>2 True
 
 b
 i)
@@ -99,17 +99,26 @@ Over time, the complexity can be tightly bound to Theta(N).
 4 EB       0  6E  2A  3C  4D
 
 b
-Topological sort, insists that parents be "finished" before child. However, DFS visits children first, and then recursively finish with their
-parent, on the way back. This means that if we want a "Parent first, Child later" sorted format, DFS's Finish order has to be reversed.
+Topological sort, insists that parents be "finished" before child. However, DFS visits children first, and then recursively finish with their parent, on the way back. This means that if we want a "Parent first, Child later" sorted format, DFS's Finish order has to be reversed.
 
 BFS does find parents before children, so it's already topologically sorted. Reversing BFS would make it wrong instead. 
 
 c
 i) Reverse Kruskal: Sorting Edges (ELogE), Disjoint sets (LogV), Build MST Loop (ELogV) -> ELogV
 
-ii) If C is a cycle, and e is the highest edge, and e is not any MST of G, then by looping REVERSE-DELETE, T will eventually become acyclic.
-It will span G because it will still be a MST. it is minimal, because there are no higher weighted edge to REVERSE-DELETE (end of loop).
-*Draw a diagram for clarification
+ii)
+T is spanning
+Line 5 guarantees this, since no edge will be removed that causes T to be disconnected
+T is acyclic
+If T is still connected after removing an edge e, then we have removed an edge from cycle in T (since if u and v are still connected after
+removing edge (u,v), then we have removed an alternative path between u and v. We attempt to remove all edges unless it makes T
+disconnected - therefore we have identified all possible cycles, and removed them.
+T is minimal
+Since we sort the edges and remove them, at every iteration, we are removing the highest weight edge in some cycle C (since this is the
+highest weight edge in our graph that is part of a cycle). We now use the property given to us: if C is a cycle in G, and e is the highest
+weight edge in C, then e is not in any MST of G. At iteration i, we have a graph Gi, starting with the full graph G0, and we remove an
+edge e not in any MST of Gi. Therefore an MST of Gi is contained in Gi+1, and an MST of Gi+1 is also an MST of Gi. At the final iteration,
+we end up with a graph Gfinal, by induction, an Gfinal contains an MST of G0(the full graph). Since Gfinal is a tree (acyclic), it is MST.
 
 4a
 Bottom Up. E[i] is the memoized max earning for working i hours. P[i] is the earning for working duration i.
@@ -136,9 +145,9 @@ Merge/Quicksort do not have "overlapping subproblems" and "optimal substructure"
 smaller pieces that do not overlap. we never operate over the same elements of the original array twice during any given level of the
 recursion. This means there is no opportunity to re-use previous calculations.
 
-Dijkstra though, is an example of dynamic programming, as it re-uses prior computations to discover the shortest path between two nodes A and
-Z. Say that A's immediate neighbors are B and C, we can find the shortest path from A to Z by summing the distance between A and B with our
-computed shortest path from B to Z; and do similarly for finding the shortest path from C to Z. Then the shortest path from A to Z will be the
-shorter of these two paths.
+Dijkstra though, is an example of dynamic programming, as it re-uses prior computations to discover the shortest path between two nodes A
+and Z. Say that A's immediate neighbors are B and C, we can find the shortest path from A to Z by summing the distance between A and B
+with our computed shortest path from B to Z; and do similarly for finding the shortest path from C to Z.
+Then the shortest path from A to Z will be the shorter of these two paths.
 
 d \Imperial-Solutions\5 Algorithms\2.2S Divide and Conquer
