@@ -120,7 +120,8 @@ if l < r
   quicksort(a, p + 1, r)
 
 ii) iii)
-On an array that is already sorted, Hoare's method never swaps, as there are no misplaced pairs, whereas Lomuto's method still does its roughly n/2 swaps! Consider an array filled with 0s. Hoare's method performs a swap for every pair of elements,
+On an array that is already sorted, Hoare's method never swaps, as there are no misplaced pairs, whereas Lomuto's method still does its
+roughly n/2 swaps! Consider an array filled with 0s. Hoare's method performs a swap for every pair of elements,
 which is the worst case for Hoare's partitioning - but i and j always meet in the middle of the array.
 Thus, we have optimal partitioning and the total running time remains in O(nlogn).
 

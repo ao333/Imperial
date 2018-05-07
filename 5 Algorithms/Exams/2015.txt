@@ -30,10 +30,10 @@ count against the load factor. Thus performance degrades to O(n), even if the ac
 
 With linked list chaining, insert/delete are T(1) if the entire dataset is not on one chain (worst case).
 
-iv) The average search/remove time for a chained hash table is the load factor O(N/m) (where N is the number of objects and m is the number o
-slots). This means that when the max load factor is reached, (High N/Low M), collision resolution is at its highest, degrading performance.
-Waiting until the max load factor is reached before copying, results in the new table having a condensed, collision-prone block too, even if
-the overall m is expanded. Thus, it is advisable to expand the table, before the max load factor is reached, for more even distribution.
+iv) The average search/remove time for a chained hash table is the load factor O(N/m) (where N is the number of objects and m is the number
+of slots). This means that when the max load factor is reached, (High N/Low M), collision resolution is at its highest, degrading
+performance. Waiting until the max load factor is reached before copying, results in the new table having a condensed, collision-prone block
+too, even if the overall m is expanded. Thus, it is advisable to expand the table, before max load factor is reached, for even distribution.
 
 v) Professor Alfaman isn't rehashing his table when he copies it over so he doesn't have simple uniform hashing which means the average
 running time of search is > O(N/m). Rehashing using a uniform hashing function when he doubles the size would achieve O(N/m) performance.
