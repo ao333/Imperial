@@ -65,11 +65,7 @@ Chaining inserts on average and worst case Theta(1) because adding to a linked l
 Probing will insert on average N/m while worst is still O(N) (probing until the end of array to find an insertion spot).
 
 iv)
-Sort the list of keys
-Make new list A
-for each key:
-  Get objects in hash table with key
-  Append objects to A
+Sort the keys -> hash each key -> get the object -> put it on the list
 *Fetching N items from a hash table takes Theta(N) time, but sorting the keys takes O(NLogN) time, so O(NLogN) overall.
 
 3a
@@ -126,4 +122,4 @@ which is the worst case for Hoare's partitioning - but i and j always meet in th
 Thus, we have optimal partitioning and the total running time remains in O(nlogn).
 
 For Lomuto, the comparison A[j] <= x will always be true, so we do a swap for every single element! Even worse,
-after the loop we always have i=n, so we observe the worst case partitioning, making the overall performance degrade to Theta(n2)!
+after the loop we always have i=n, so we observe the worst case partitioning, making the overall performance degrade to Theta(n^2)!
